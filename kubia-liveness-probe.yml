@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubia-liveness-probe
+spec:
+  containers:
+  - image: dlnreddy/kubia-unhealthy
+    name: kubia-liveness
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8080
+      initialDelaySeconds:  15
+      periodSeconds: 5
+      timeoutSeconds: 1
