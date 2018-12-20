@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: deploy-k8s-demo
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: pod-k8s-demo
+      labels:
+        app: k8s-demo
+    spec:
+      containers:
+      - name: container-k8s-demo
+        image: dlnreddy/docker-demo-app
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-k8s-demo
+spec:
+  type: LoadBalancer
+  selector:
+    app: k8s-demo
+  ports:
+  - port: 80
+    targetPort: 80

@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: deploy-kubia
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: pod-kubia-v1
+      labels:
+        app: kubia
+    spec:
+      containers:
+      - name: container-kubia
+        image: dlnreddy/kubia:v1
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-kubia
+spec:
+  type: LoadBalancer
+  selector:
+    app: kubia
+  ports:
+  - port: 80
+    targetPort: 8080
